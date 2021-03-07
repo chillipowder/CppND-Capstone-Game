@@ -14,7 +14,7 @@ class Obstacle {
     virtual float GetX() = 0;
     virtual float GetY() = 0;
     virtual void SetX(float f) = 0;
-    virtual float IncreaseSpeed(float f) = 0;
+    virtual void IncreaseSpeed(float f) = 0;
     
 };
 
@@ -30,7 +30,7 @@ class FirstLvlObs : public Obstacle {
     float GetX() {return pos_x;};
     float GetY() {return pos_y;};
     void SetX(float f) {pos_x = f;};
-    float IncreaseSpeed(float f) {speed *= f;};
+    void IncreaseSpeed(float f) {speed *= f;};
 
     inline static std::vector<int> obstacle_pos; //static member (globale) Variable für Überblick wo ein Obstacle gesetzt werden kann das von oben kommt 
     float speed{1.f};
@@ -52,7 +52,7 @@ class NextLvlObs : public Obstacle {
     float GetX() {return pos_x;};
     float GetY() {return pos_y;};
     void SetX(float f) {pos_x = f;};
-    float IncreaseSpeed(float f) {speed *= f;};
+    void IncreaseSpeed(float f) {speed *= f;};
 
 
     float speed{3.f};

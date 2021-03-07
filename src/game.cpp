@@ -9,7 +9,7 @@ Game::Game()
       engine(dev()),
       random_w(0, static_cast<int>(kScreenHeight -1)),
       random_h(0, static_cast<int>(kScreenHeight -1)) {
-  PlaceFood();
+  PlaceBonus();
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
@@ -27,16 +27,16 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
   while (running) {
     frame_start = SDL_GetTicks();
-    //std::cout <<"test ob der scheiß flüssiger läuft \n";
+    //std::cout <<"test ob der scheiß flüssiger läuft \n"; 
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, player);
     Update();
-    renderer.Render(player, food, obstacle_vec);
+    renderer.Render(player, bonus, obstacle_vec);
 
     // update level and create new obstacles after fixed period of time  
     auto now = std::chrono::system_clock::now();
     std::chrono::duration<double, std::milli> diff = now - level_timestamp;
-    if (diff.count() > 10 * 1000) {
+    if (diff.count() > 30 * 1000) {
       std::cout << "leveling up \n";
       level++;
       CreateObstacles();
@@ -52,7 +52,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
     // After every second, update the window title.
     if (frame_end - title_timestamp >= 1000) {
-      renderer.UpdateWindowTitle(score, frame_count);
+      renderer.UpdateWindowTitle(score, frame_count, level);
       frame_count = 0;
       title_timestamp = frame_end;
     }
@@ -98,22 +98,30 @@ void Game::CreateObstacles() {
       }
       player.speed *= 1.1;
       break;
+    default:
+      std::cout << "default case \n";
+      for(auto &obs : obstacle_vec)
+      {
+        obs->IncreaseSpeed(1.5);
+      }
+      player.speed *= 1.1;
+      break;
   }
 
 }
 
-void Game::PlaceFood() {
+void Game::PlaceBonus() {
   int x, y;
   while (true) {
     x = random_w(engine);
     y = random_h(engine);
     // Check that the location is not occupied by a player item before placing
-    // food.
+    // bonus.
     if (!player.PlayerCell(x, y)) {
-      food.x = x;
-      food.y = y;
-      food_center.x = x + 10;
-      food_center.y = y + 10;
+      bonus.x = x;
+      bonus.y = y;
+      bonus_center.x = x + 10;
+      bonus_center.y = y + 10;
       return;
     }
   }
@@ -127,19 +135,15 @@ void Game::Update() {
   //updating Obstacles
   for(auto &obs : obstacle_vec) 
   {
-    //std::cout << "game vector size: " << obstacle_vec.size() << "\n";
     //if(obs.pos_x == 2) std::cout << obs.pos_y << "\n";
     obs->Update();
-    //std::cout << obs->pos_x << " " << obs->pos_y << "\n";
-    //std::cout << obs.speed << "\n";
   }
 
-  // Check if there's food over here
-  if (player.head_x < food_center.x && player.head_rx > food_center.x && player.head_y < food_center.y && player.head_ry > food_center.y)
+  // Check if there's bonus over here
+  if (player.head_x < bonus_center.x && player.head_rx > bonus_center.x && player.head_y < bonus_center.y && player.head_ry > bonus_center.y)
   {
-    score++;
-    PlaceFood();
-    //nach jedem bonus punkt die geschwindigkeit de obstacles erhöhen? 
+    score +=10;
+    PlaceBonus();
   }
 }
 

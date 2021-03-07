@@ -1,6 +1,7 @@
 #include "renderer.h"
 #include <iostream>
 #include <string>
+#include <random>
 
 Renderer::Renderer() {
   // Initialize SDL
@@ -32,7 +33,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(Player const player, SDL_Point const &food, std::vector<std::unique_ptr<Obstacle>> const &obstacles) {
+void Renderer::Render(Player const player, SDL_Point const &bonus, std::vector<std::unique_ptr<Obstacle>> const &obstacles) {
   SDL_Rect block;
   SDL_Rect obstacle_block;
   block.w = kScreenWidth / kGridWidth;
@@ -44,12 +45,20 @@ void Renderer::Render(Player const player, SDL_Point const &food, std::vector<st
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
   SDL_RenderClear(sdl_renderer);
 
-  // Render food
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);/*
-  block.x = food.x * block.w; 
-  block.y = food.y * block.h;*/
-  block.x = food.x; 
-  block.y = food.y;
+  // Render bonus points in always changing colors 
+  std::random_device rd;
+  std::mt19937 rng(rd());
+  std::uniform_int_distribution<int> uni(0, 255);
+  auto rnd_int = uni(rng);
+  auto rnd_int2 = uni(rng);
+  auto rnd_int3 = uni(rng);
+
+  //SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);
+  SDL_SetRenderDrawColor(sdl_renderer, rnd_int, rnd_int2, rnd_int3, 125);/*
+  block.x = bonus.x * block.w; 
+  block.y = bonus.y * block.h;*/
+  block.x = bonus.x; 
+  block.y = bonus.y;
   SDL_RenderFillRect(sdl_renderer, &block);
 
   // Render obstacles
@@ -64,23 +73,6 @@ void Renderer::Render(Player const player, SDL_Point const &food, std::vector<st
     SDL_RenderFillRect(sdl_renderer, &obstacle_block);
   }
 
-  // Render player's body
-  /*
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-  for (SDL_Point const &point : player.body) {
-    block.x = point.x * block.w;
-    block.y = point.y * block.h;
-    SDL_RenderFillRect(sdl_renderer, &block);
-  }*/
-
-  // Render player's head
-  // player is on a 32x32 grid whereas the screen is a 640² grid. the x val can only accept vals btw 0-31 and must therefore be multiplied by 32 (width||height)
-  // in order to be placed correctly on screen.
-  //block.x = static_cast<int>(player.head_x) * block.w; // old vintage look 
-  //block.y = static_cast<int>(player.head_y) * block.h;
-  /*
-  block.x = player.head_x * block.w; //smooth sailing with floats
-  block.y = player.head_y * block.h;*/
   block.x = player.head_x; //smooth sailing with floats
   block.y = player.head_y;
   if (player.alive) {
@@ -94,7 +86,7 @@ void Renderer::Render(Player const player, SDL_Point const &food, std::vector<st
   SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::UpdateWindowTitle(int score, int fps) {
-  std::string title{"Player Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
+void Renderer::UpdateWindowTitle(int score, int fps, int level) {
+  std::string title{"Player Score: " + std::to_string(score) + " FPS: " + std::to_string(fps) + " Level: " + std::to_string(level)};
   SDL_SetWindowTitle(sdl_window, title.c_str());
 }

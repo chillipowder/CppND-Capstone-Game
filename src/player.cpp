@@ -17,7 +17,7 @@ void Player::Update(std::vector<std::unique_ptr<Obstacle>> const &obstacles) {
     float pos_rx = obs->GetX() + 40; // später austauschen oder direkt in obstacle unterbringen
     float pos_ry = obs->GetY() + 40;
     //std::cout << obs.pos_y << " " << obs.pos_x << " " << pos_ry << " " << pos_rx << " obstacle \n";
-    if (!(head_ry <= obs->GetY() || head_rx <= obs->GetX() || head_y >= pos_ry || head_x >= pos_rx))
+    if (!(head_ry < obs->GetY() || head_rx < obs->GetX() || head_y > pos_ry || head_x > pos_rx))
       alive = false; 
   }
 }
