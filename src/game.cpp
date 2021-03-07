@@ -27,7 +27,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
   while (running) {
     frame_start = SDL_GetTicks();
-    std::cout <<"test ob der scheiß flüssiger läuft \n";
+    //std::cout <<"test ob der scheiß flüssiger läuft \n";
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, player);
     Update();

@@ -1,1 +1,0 @@
-/usr/bin/g++-7  -std=c++17   CMakeFiles/Game.dir/src/main.cpp.o CMakeFiles/Game.dir/src/game.cpp.o CMakeFiles/Game.dir/src/controller.cpp.o CMakeFiles/Game.dir/src/renderer.cpp.o CMakeFiles/Game.dir/src/player.cpp.o CMakeFiles/Game.dir/src/obstacle.cpp.o  -o Game -L/usr/lib/x86_64-linux-gnu  -lSDL2 
