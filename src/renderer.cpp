@@ -33,7 +33,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(Player const player, SDL_Point const &bonus, std::vector<std::unique_ptr<Obstacle>> const &obstacles) {
+void Renderer::Render(Player const player, SDL_Point const &bonus, std::vector<std::shared_ptr<Obstacle>> const &obstacles) {
   SDL_Rect block;
   SDL_Rect obstacle_block;
   block.w = kScreenWidth / kGridWidth;
@@ -53,10 +53,7 @@ void Renderer::Render(Player const player, SDL_Point const &bonus, std::vector<s
   auto rnd_int2 = uni(rng);
   auto rnd_int3 = uni(rng);
 
-  //SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);
-  SDL_SetRenderDrawColor(sdl_renderer, rnd_int, rnd_int2, rnd_int3, 125);/*
-  block.x = bonus.x * block.w; 
-  block.y = bonus.y * block.h;*/
+  SDL_SetRenderDrawColor(sdl_renderer, rnd_int, rnd_int2, rnd_int3, 125);
   block.x = bonus.x; 
   block.y = bonus.y;
   SDL_RenderFillRect(sdl_renderer, &block);
@@ -64,10 +61,6 @@ void Renderer::Render(Player const player, SDL_Point const &bonus, std::vector<s
   // Render obstacles
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x80, 0x00, 0xFF);
   for(auto &obs : obstacles)  {
-    //std::cout << obs.pos_x << " obs pos x \n";
-    /*
-    obstacle_block.x = obs.pos_x * (obstacle_block.w / 2);
-    obstacle_block.y = obs.pos_y * (obstacle_block.h / 2);*/
     obstacle_block.x = obs->GetX() ;
     obstacle_block.y = obs->GetY() ;
     SDL_RenderFillRect(sdl_renderer, &obstacle_block);
@@ -86,7 +79,8 @@ void Renderer::Render(Player const player, SDL_Point const &bonus, std::vector<s
   SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::UpdateWindowTitle(int score, int fps, int level) {
-  std::string title{"Player Score: " + std::to_string(score) + " FPS: " + std::to_string(fps) + " Level: " + std::to_string(level)};
+void Renderer::UpdateWindowTitle(int score, int fps, int level, std::chrono::seconds playtime) {
+  std::string title{"Player Score: " + std::to_string(score) + " FPS: " + std::to_string(fps) + " Level: " + std::to_string(level)
+                    + " Playtime: " + std::to_string(playtime.count()) + " s"};
   SDL_SetWindowTitle(sdl_window, title.c_str());
 }

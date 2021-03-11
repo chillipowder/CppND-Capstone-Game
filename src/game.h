@@ -21,7 +21,7 @@ class Game {
  private:
   int level{0};
   Player player;
-  std::vector<std::unique_ptr<Obstacle>> obstacle_vec;
+  std::vector<std::shared_ptr<Obstacle>> obstacle_vec;
 
   SDL_Point bonus;
   SDL_Point bonus_center;

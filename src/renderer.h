@@ -12,8 +12,8 @@ class Renderer {
   Renderer();
   ~Renderer();
 
-  void Render(Player const player, SDL_Point const &bonus, std::vector<std::unique_ptr<Obstacle>> const &obstacles);
-  void UpdateWindowTitle(int score, int fps, int level);
+  void Render(Player const player, SDL_Point const &bonus, std::vector<std::shared_ptr<Obstacle>> const &obstacles);
+  void UpdateWindowTitle(int score, int fps, int level, std::chrono::seconds playtime);
 
  private:
   SDL_Window *sdl_window;
