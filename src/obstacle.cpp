@@ -69,7 +69,10 @@ void Wall::Update() {
 
     if(diff.count() > start_time) {
         //std::cout << blocks.size() << "\n";
-        if(GetY() != -40) pos_y += speed;
+        if(GetY() != -40) {
+            pos_y += speed;
+            blocks.emplace_back(std::move(this));
+        }
         else if(blocks.empty()) {
             //std::weak_ptr<Obstacle> wall_wk_ptr(this);
             pos_y += speed;
