@@ -1,12 +1,31 @@
-# CPPND: Capstone Player Game Example
+# CPPND: Capstone Game 
 
-This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/player-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
+The purpose of this game is to keep the blue square player alive as long as possible by not hitting any of the orange obstacles. Points are awarded for every second of being alive. Additional points can be gained by collecting the rainbow squares. Level ups are time triggered. After each level up the speed increases and new obstacles might appear. 
 
-<img src="player_game.gif"/>
+## General Structure
 
-The Capstone Project gives you a chance to integrate what you've learned throughout this program. This project will become an important part of your portfolio to share with current and future colleagues and employers.
+The project is divided into several files and classes that take care of the various tasks. 
 
-In this project, you can build your own C++ application or extend this Player game, following the principles you have learned throughout this Nanodegree Program. This project will demonstrate that you can independently create applications using a wide range of C++ features.
+### main.cpp
+The main function creates the necessary renderer, controller and game objects. Those are then used in the Game.Run() loop. 
+
+### game.cpp
+The game.cpp file contains the main loop Game.Run() of the Game in which all states are updated.
+In addition to calling the individual update functions of the renderer, the controller and the game itself, the mechanism is included to ensure 
+that every loop has the time of execution in order to keep the desired frame rate.    
+Furthermore level updates including all changes such as new obstacles that come with it are included in the loop. 
+
+### player.cpp
+The player.cpp contains all player related methods such as if the player has hit an obstacle or if it has left the screen and needs to be put on the other side of the screen 
+
+### controller.cpp
+The controller.cpp method observes the keyboard states and changes the players position accordingly
+
+### renderer.cpp
+The renderer file contains all methods that are needed in order to display all objects on the screen 
+
+### obstacle.cpp
+In the obstacle.cpp methods the individual obstacle states are managed. 
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
