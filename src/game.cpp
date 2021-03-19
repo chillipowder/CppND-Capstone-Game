@@ -40,7 +40,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     // update level and create new obstacles after fixed period of time  
     auto now = std::chrono::system_clock::now();
     std::chrono::duration<double, std::milli> diff = now - level_timestamp;
-    if (diff.count() > 10 * 1000 && player.alive) {
+    if (diff.count() > 15 * 1000 && player.alive) {
       level++;
       CreateObstacles();
       level_timestamp = std::chrono::system_clock::now();
