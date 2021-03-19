@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-void Player::Update(std::vector<std::shared_ptr<Obstacle>> const &obstacles) {
+void Player::Update(std::vector<std::unique_ptr<Obstacle>> const &obstacles) {
 
   // Wrap the Player around to the beginning if going off of the screen.
   head_x = fmod(head_x + kScreenWidth, kScreenWidth);

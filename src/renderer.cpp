@@ -33,7 +33,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(Player const player, SDL_Point const &bonus, std::vector<std::shared_ptr<Obstacle>> const &obstacles) {
+void Renderer::Render(Player const player, SDL_Point const &bonus, std::vector<std::unique_ptr<Obstacle>> const &obstacles) {
   SDL_Rect block;
   SDL_Rect obstacle_block;
   block.w = kScreenWidth / kGridWidth;

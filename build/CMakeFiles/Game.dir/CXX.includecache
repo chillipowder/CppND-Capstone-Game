@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+/home/fabian/Documents/CppND-Capstone-Game/src/controller.cpp
+controller.h
+/home/fabian/Documents/CppND-Capstone-Game/src/controller.h
+iostream
+-
+SDL.h
+/home/fabian/Documents/CppND-Capstone-Game/src/SDL.h
+player.h
+/home/fabian/Documents/CppND-Capstone-Game/src/player.h
+
 /home/fabian/Documents/CppND-Capstone-Game/src/controller.h
 player.h
 /home/fabian/Documents/CppND-Capstone-Game/src/player.h
@@ -66,6 +76,14 @@ memory
 main.h
 /home/fabian/Documents/CppND-Capstone-Game/src/main.h
 
+/home/fabian/Documents/CppND-Capstone-Game/src/player.cpp
+player.h
+/home/fabian/Documents/CppND-Capstone-Game/src/player.h
+cmath
+-
+iostream
+-
+
 /home/fabian/Documents/CppND-Capstone-Game/src/player.h
 memory
 -
@@ -75,6 +93,16 @@ SDL.h
 /home/fabian/Documents/CppND-Capstone-Game/src/SDL.h
 obstacle.h
 /home/fabian/Documents/CppND-Capstone-Game/src/obstacle.h
+
+/home/fabian/Documents/CppND-Capstone-Game/src/renderer.cpp
+renderer.h
+/home/fabian/Documents/CppND-Capstone-Game/src/renderer.h
+iostream
+-
+string
+-
+random
+-
 
 /home/fabian/Documents/CppND-Capstone-Game/src/renderer.h
 memory

@@ -17,11 +17,12 @@ class Game {
   void Run(Controller const &controller, Renderer &renderer,
            std::size_t target_frame_duration);
   int GetScore() const;
+  int GetLevel() const;
 
  private:
   int level{0};
   Player player;
-  std::vector<std::shared_ptr<Obstacle>> obstacle_vec;
+  std::vector<std::unique_ptr<Obstacle>> obstacle_vec;
 
   SDL_Point bonus;
   SDL_Point bonus_center;
