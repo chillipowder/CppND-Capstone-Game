@@ -107,14 +107,14 @@ void Game::CreateObstacles() {
       }
       player.speed *= 1.1;
       break;
-    /*
+    
     case 4:
       std::cout << "case 4 \n";
       for(int i = 0; i < 16; i++) {
-        std::shared_ptr<Obstacle> flo (new Wall(1, std::chrono::system_clock::now()));
+        std::unique_ptr<Obstacle> flo (new Wall(1, std::chrono::system_clock::now()));
         obstacle_vec.emplace_back(std::move(flo));
       }
-      break;*/
+      break;
     default:
       //std::cout << "default case \n";
       for(auto &obs : obstacle_vec)
