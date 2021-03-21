@@ -1,5 +1,6 @@
 # CPPND: Capstone Game 
 
+This is the final project of the Udacity C++ Nano Degree program. 
 The purpose of this game is to keep the blue square player alive as long as possible by not hitting any of the orange obstacles. Points are awarded for every second of being alive. Additional points can be gained by collecting the rainbow squares. Level ups are time triggered. After each level up the speed increases and new obstacles might appear. 
 
 ## General Structure
