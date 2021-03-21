@@ -40,18 +40,6 @@ player.h
 obstacle.h
 /home/fabian/Documents/CppND-Capstone-Game/src/obstacle.h
 
-/home/fabian/Documents/CppND-Capstone-Game/src/main.cpp
-iostream
--
-main.h
-/home/fabian/Documents/CppND-Capstone-Game/src/main.h
-controller.h
-/home/fabian/Documents/CppND-Capstone-Game/src/controller.h
-game.h
-/home/fabian/Documents/CppND-Capstone-Game/src/game.h
-renderer.h
-/home/fabian/Documents/CppND-Capstone-Game/src/renderer.h
-
 /home/fabian/Documents/CppND-Capstone-Game/src/main.h
 
 /home/fabian/Documents/CppND-Capstone-Game/src/obstacle.h

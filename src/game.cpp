@@ -40,8 +40,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     // update level and create new obstacles after fixed period of time  
     auto now = std::chrono::system_clock::now();
     std::chrono::duration<double, std::milli> diff = now - level_timestamp;
-    if (diff.count() > 10 * 1000 && player.alive) {
-      //std::cout << "leveling up \n";
+    if (diff.count() > 15 * 1000 && player.alive) {
       level++;
       CreateObstacles();
       level_timestamp = std::chrono::system_clock::now();
@@ -69,9 +68,6 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     // If the time for this frame is too small (i.e. frame_duration is
     // smaller than the target ms_per_frame), delay the loop to
     // achieve the correct frame rate.
-    /*if (frame_duration > 10) {
-      std::cout << frame_duration << "\n";
-    }*/
     if (frame_duration < target_frame_duration) {
       SDL_Delay(target_frame_duration - frame_duration);
     }
@@ -81,16 +77,16 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 void Game::CreateObstacles() {
   switch (level) {
     case 0:
-      std::cout << "case 0 \n";
+      //std::cout << "case 0 \n";
       for(int i = 0; i < 8; i++) {
-        std::shared_ptr<Obstacle> flo (new FirstLvlObs(i * 1200 + 1000, std::chrono::system_clock::now()));
+        std::unique_ptr<Obstacle> flo (new FirstLvlObs(i * 1200 + 1000, std::chrono::system_clock::now()));
         obstacle_vec.emplace_back(std::move(flo));
       }
       break;
-    case 4:
-      std::cout << "case 1 \n";
+    case 1:
+      //std::cout << "case 1 \n";
       for(int i = 0; i < 8; i++) {
-        std::shared_ptr<Obstacle> flo (new FirstLvlObs(i * 1200 + 1000, std::chrono::system_clock::now()));
+        std::unique_ptr<Obstacle> flo (new FirstLvlObs(i * 1200 + 1000, std::chrono::system_clock::now()));
         obstacle_vec.emplace_back(std::move(flo));
       }
       for (auto &obs : obstacle_vec) {
@@ -104,22 +100,23 @@ void Game::CreateObstacles() {
       }
       break;
     case 3:
-      std::cout << "case 3 \n";
+      //std::cout << "case 3 \n";
       for(int i = 0; i < 3; i++) {
-        std::shared_ptr<Obstacle> flo (new NextLvlObs(i * 3000 + 1000, std::chrono::system_clock::now()));
+        std::unique_ptr<Obstacle> flo (new NextLvlObs(i * 3000 + 1000, std::chrono::system_clock::now()));
         obstacle_vec.emplace_back(std::move(flo));
       }
       player.speed *= 1.1;
       break;
-    case 1:
+    
+    case 4:
       std::cout << "case 4 \n";
       for(int i = 0; i < 16; i++) {
-        std::shared_ptr<Obstacle> flo (new Wall(1, std::chrono::system_clock::now()));
+        std::unique_ptr<Obstacle> flo (new Wall(1, std::chrono::system_clock::now()));
         obstacle_vec.emplace_back(std::move(flo));
       }
       break;
     default:
-      std::cout << "default case \n";
+      //std::cout << "default case \n";
       for(auto &obs : obstacle_vec)
       {
         obs->IncreaseSpeed(1.25);//1.5
@@ -155,7 +152,6 @@ void Game::Update() {
   //updating Obstacles
   for(auto &obs : obstacle_vec) 
   {
-    //if(obs.pos_x == 2) std::cout << obs.pos_y << "\n";
     obs->Update();
   }
 
@@ -168,4 +164,4 @@ void Game::Update() {
 }
 
 int Game::GetScore() const { return score; }
-//int Game::GetSize() const { return player.size; }
+int Game::GetLevel() const { return level; }

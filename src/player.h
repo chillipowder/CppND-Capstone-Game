@@ -14,7 +14,7 @@ class Player {
       : head_x(kScreenWidth / 2),
         head_y(kScreenHeight / 2) {}
 
-  void Update(std::vector<std::shared_ptr<Obstacle>> const &obstacles);
+  void Update(std::vector<std::unique_ptr<Obstacle>> const &obstacles);
 
   bool PlayerCell(int x, int y);
 

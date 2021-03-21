@@ -9,8 +9,6 @@
 
 class Obstacle {
   public:
-    //Obstacle();
-    //virtual ~Obstacle();
     virtual void Update() = 0;
     virtual float GetX() = 0;
     virtual float GetY() = 0;
@@ -24,7 +22,6 @@ class FirstLvlObs : public Obstacle {
     FirstLvlObs(int start_time, std::chrono::time_point<std::chrono::system_clock> timestamp)
       : start_time(start_time),
         timestamp(timestamp) {}
-    //~FirstLvlObs(){};
 
     void Update();
     float GetX() {return pos_x;};

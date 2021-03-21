@@ -2,8 +2,6 @@
 #include <algorithm>
 #include "obstacle.h"
 
-//necessary for compiler linking --> not anymore due to inline keyword
-//std::vector<int> Obstacle::obstacle_pos;
 
 void FirstLvlObs::Update() {
     std::random_device rd;
@@ -11,7 +9,6 @@ void FirstLvlObs::Update() {
     std::uniform_int_distribution<int> uni(0, kGridWidth - 2);
 
     auto now = std::chrono::system_clock::now();
-    //auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
     std::chrono::duration<double, std::milli> diff = now - timestamp;
     
     //if starttime has passed...
@@ -27,7 +24,7 @@ void FirstLvlObs::Update() {
             }
             pos_x = rnd_int * kScreenWidth / kGridWidth; // use the whole width to place obstacles 
             obstacle_pos.emplace_back(rnd_int);
-        } else if(GetY() > kScreenHeight) //32 * 20)
+        } else if(GetY() > kScreenHeight) //32 * 20
         {   // set back to start at a potential new location
             pos_x = -1;
             pos_y = -40;
@@ -50,8 +47,8 @@ void NextLvlObs::Update() {
         if(GetY() == -1)
         {   
             auto rnd_int = uni(rng);         
-            pos_y = rnd_int * kScreenHeight / kGridHeight; // use the whole height to place obstacles 
-        } else if(GetX() > kScreenWidth) //32 * 20)
+            pos_y = rnd_int * kScreenHeight / kGridHeight; 
+        } else if(GetX() > kScreenWidth) 
         {
             pos_x = -40;
             pos_y = -1;
